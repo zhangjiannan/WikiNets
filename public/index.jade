@@ -4,9 +4,13 @@ html
   head
     title WikiNets
     link(rel='stylesheet', type='text/css', href='style.css')
+    link(rel="stylesheet", type="text/css", href="/celestrium/css/celestrium-defaults.css")
     script(type='text/javascript', src='jquery-1.10.2.js')
     script(type='text/javascript', src='d3.v3.min.js')
-    script(type='text/javascript', src='vizscript.js')
+    //script(type='text/javascript', src='vizscript.js')
+    script(data-main="/main", src="/celestrium/lib/require.js")
+    script(type='text/javascript', src='main.js')
+
 
 
   body
@@ -29,7 +33,7 @@ html
       #syntaxAddMenu
 
         input#createNodeButton(type="submit",value="Create Node")
-        
+
         input#createArrowButton(type="submit",value="Create Arrow")
 
         #buildNodeArea(style='font-size:12px;color:#3b5d14;background:white;font-weight:bold;padding:4px;float:left;')
