@@ -22,7 +22,7 @@ requirejs.config({
   }
 });
 
-requirejs(["core/celestrium"], function(Celestrium) {
+requirejs(["celestrium/core-coffee/celestrium"], function(Celestrium) {
 
   var dataProvider = new function() {
     this.minThreshold = 0.75;
