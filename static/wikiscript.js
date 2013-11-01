@@ -154,6 +154,7 @@ function edit_node(nodeid){
           $("input[name=propertyEdit"+counter+"]").val(property);
           $("input[name=valueEdit"+counter+"]").val(data[property]);
         };
+
       };
     });
 }
