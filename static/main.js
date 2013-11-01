@@ -1,11 +1,11 @@
 requirejs.config({
   baseUrl: "/",
   paths: {
-    "jquery": "lib/jquery",
-    "jquery.typeahead": "lib/jquery.typeahead",
-    "underscore": "lib/underscore",
-    "backbone": "lib/backbone",
-    "d3": "lib/d3",
+    "jquery": "celestrium/lib/jquery",
+    "jquery.typeahead": "celestrium/lib/jquery.typeahead",
+    "underscore": "celestrium/lib/underscore",
+    "backbone": "celestrium/lib/backbone",
+    "d3": "celestrium/lib/d3",
   },
   shim: {
     'jquery.typeahead': ['jquery'],
@@ -22,7 +22,7 @@ requirejs.config({
   }
 });
 
-requirejs(["celestrium/core-coffee/celestrium"], function(Celestrium) {
+requirejs(["celestrium/core/celestrium"], function(Celestrium) {
 
   var dataProvider = new function() {
     this.minThreshold = 0.75;
@@ -52,9 +52,9 @@ requirejs(["celestrium/core-coffee/celestrium"], function(Celestrium) {
   };
 
   Celestrium.createWorkspace({
-    el: document.querySelector("#maingraph")//,
-    /*dataProvider: dataProvider,
-    nodePrefetch: "get_nodes",
+    el: document.querySelector("#maingraph"),
+    dataProvider: dataProvider//,
+    /*nodePrefetch: "get_nodes",
     nodeAttributes: {
       conceptText: {
         type: "nominal",

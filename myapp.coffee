@@ -405,6 +405,27 @@ module.exports = class MyApp
       )
 
     )
+
+    ###
+    Gets Edges.  Set up to work with the Celestrium dataprovider.
+    RIGHT NOW DOES NOT WORK
+    ###
+    app.post('/get_edges', (request,response)->
+      console.log "Get Edges Requested from node, ", request.node, " to ", request.otherNodes
+      ###
+      cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
+      cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
+      console.log "Executing " + cypherQuery
+      graphDb.cypher.execute(cypherQuery).then(
+        (noderes) ->
+          console.log "Arrow Deleted"
+          response.send "success"
+        (noderes) ->
+          console.log "Could Not Delete Arrow"
+          response.send "error"
+      )
+      ###
+    )
   
     ###
     indexPromise = graphDb.index.createNodeIndex "myIndex"
