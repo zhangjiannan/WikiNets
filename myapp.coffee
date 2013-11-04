@@ -414,10 +414,14 @@ module.exports = class MyApp
     Gets Edges.  Set up to work with the Celestrium dataprovider.
     RIGHT NOW DOES NOT WORK
     ###
-    app.post('/get_edges', (request,response)->
+    app.get('/get_edges', (request,response)->
+      console.log request
       console.log "Get Edges Requested from node, ", request.node, " to ", request.otherNodes
+      
+      theEdges = (1 for n in otherNodes)
+
+      response.send(theEdges);
       ###
-      cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
       cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
       console.log "Executing " + cypherQuery
       graphDb.cypher.execute(cypherQuery).then(
@@ -429,6 +433,31 @@ module.exports = class MyApp
           response.send "error"
       )
       ###
+      
+    )
+
+    ###
+    Gets Linked Nodes.  Set up to work with the Celestrium dataprovider.
+    RIGHT NOW DOES NOT WORK
+    ###
+    app.get('/get_related_nodes', (request,response)->
+      console.log "Get Linked Nodes Requested from node, ", request.nodes
+      
+      LinkedNodes = [{text:"name1"}]
+
+      response.send(LinkedNodes);
+    )
+
+    ###
+    Gets Nodes.  Set up to work with the Celestrium dataprovider.
+    RIGHT NOW DOES NOT WORK
+    ###
+    app.get('/get_nodes', (request,response)->
+      console.log "Get ALL Nodes Requested."
+      
+      AllNodes = ['name1','Alice','Bob']
+      
+      response.json(AllNodes);
     )
   
     ###

@@ -27,6 +27,7 @@ requirejs(["celestrium/core/celestrium"], function(Celestrium) {
   var dataProvider = new function() {
     this.minThreshold = 0.75;
     this.getLinks = function(node, nodes, callback) {
+      console.log("getLinks was called with", node, " and ", nodes);
       var data = {
         node: JSON.stringify(node),
         otherNodes: JSON.stringify(nodes),
@@ -35,6 +36,7 @@ requirejs(["celestrium/core/celestrium"], function(Celestrium) {
     };
 
     this.getLinkedNodes = function(nodes, callback) {
+    console.log("getLinkedNodes was called with", nodes);
       var data = {
         nodes: JSON.stringify(nodes),
         minStrength: this.minThreshold,
@@ -51,10 +53,11 @@ requirejs(["celestrium/core/celestrium"], function(Celestrium) {
     }
   };
 
+  console.log("Create workspace called");
   Celestrium.createWorkspace({
     el: document.querySelector("#maingraph"),
-    dataProvider: dataProvider//,
-    /*nodePrefetch: "get_nodes",
+    dataProvider: dataProvider,
+    nodePrefetch: "get_nodes",
     nodeAttributes: {
       conceptText: {
         type: "nominal",
@@ -62,6 +65,6 @@ requirejs(["celestrium/core/celestrium"], function(Celestrium) {
           return node.text;
         },
       },
-    },*/
+    },
   });
 });
