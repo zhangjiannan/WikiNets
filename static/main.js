@@ -45,11 +45,18 @@ requirejs(["celestrium/core/celestrium"], function(Celestrium) {
     };
 
     this.ajax = function(url, data, callback) {
-      $.ajax({
+      console.log("The Data", data);
+      console.log("The node", data.node);
+      $.post(
+        url,
+        data,
+        callback
+      );
+      /*$.ajax({
         url: url,
         data: data,
         success: callback,
-      });
+      });*/
     }
   };
 

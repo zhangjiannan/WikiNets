@@ -414,11 +414,11 @@ module.exports = class MyApp
     Gets Edges.  Set up to work with the Celestrium dataprovider.
     RIGHT NOW DOES NOT WORK
     ###
-    app.get('/get_edges', (request,response)->
-      console.log request
-      console.log "Get Edges Requested from node, ", request.node, " to ", request.otherNodes
+    app.post('/get_edges', (request,response)->
+      console.log request.body
+      console.log "Get Edges Requested from node, ", request.body.node, " to ", request.body.otherNodes
       
-      theEdges = (1 for n in otherNodes)
+      theEdges = (1 for n in request.body.otherNodes)
 
       response.send(theEdges);
       ###
@@ -440,7 +440,7 @@ module.exports = class MyApp
     Gets Linked Nodes.  Set up to work with the Celestrium dataprovider.
     RIGHT NOW DOES NOT WORK
     ###
-    app.get('/get_related_nodes', (request,response)->
+    app.post('/get_related_nodes', (request,response)->
       console.log "Get Linked Nodes Requested from node, ", request.nodes
       
       LinkedNodes = [{text:"name1"}]
