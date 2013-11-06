@@ -28,6 +28,8 @@
     The value is passed to its constructor.
     */
 
+    console.log("main.js called");
+
     var plugins;
     plugins = {
       Layout: {

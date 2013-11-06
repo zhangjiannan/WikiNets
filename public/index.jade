@@ -4,11 +4,13 @@ html
   head
     title WikiNets
     link(rel='stylesheet', type='text/css', href='style.css')
+    link(rel='stylesheet', type='text/css', href='celestrium/css/celestrium-defaults.css')
+
     script(type='text/javascript', src='jquery-1.10.2.js')
     script(type='text/javascript', src='d3.v3.min.js')
-    script(type='text/javascript', src='vizscript.js')
+    
     script(type='text/javascript', src='jquery.typeahead.js')
-
+    script(type='text/javascript', data-main="main", src="/celestrium/lib/require.js")
 
   body
 
@@ -99,7 +101,7 @@ html
                 li
                   div#togglebox
 
-    #maingraph(style="height:20px;")
+    #maingraph(style="width:800px;height:500px;position:absolute;top:74px;left:300px;")
 
     #sidebar(style='font-size:12px;color:#3b5d14;background:white;font-weight:bold;padding:4px;height:100%;width: 300px;float:right;margin-right: 10px;')
         ul.menu
