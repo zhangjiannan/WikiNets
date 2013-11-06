@@ -4,13 +4,11 @@ html
   head
     title WikiNets
     link(rel='stylesheet', type='text/css', href='style.css')
-    link(rel='stylesheet', type='text/css', href='celestrium/css/celestrium-defaults.css')
-
     script(type='text/javascript', src='jquery-1.10.2.js')
     script(type='text/javascript', src='d3.v3.min.js')
-    
+    script(type='text/javascript', src='vizscript.js')
     script(type='text/javascript', src='jquery.typeahead.js')
-    script(type='text/javascript', data-main="main", src="/celestrium/lib/require.js")
+
 
   body
 
@@ -101,7 +99,7 @@ html
                 li
                   div#togglebox
 
-    #maingraph(style='width:800px;height:500px;position:absolute;top:74px;left:300px;')
+    #maingraph(style="height:20px;")
 
     #sidebar(style='font-size:12px;color:#3b5d14;background:white;font-weight:bold;padding:4px;height:100%;width: 300px;float:right;margin-right: 10px;')
         ul.menu
@@ -111,8 +109,8 @@ html
           ul#sm_3.submenu
             li
               //img.choose_menu(src='plus.png', alt='Open the Edit Network menu.')
-              #editbutton(style="background:#e3edef;text-align:center")
-                a#show_edit(href='#') Click to Hide/Unhide Info
+              //#editbutton(style="background:#e3edef;text-align:center")
+              //  a#show_edit(href='#') Click to Hide/Unhide Info
             li
               #edit_menu(style='display: block;')
                     ul.menu
@@ -147,35 +145,10 @@ html
 
     script(type='text/javascript', src='wikiscript.js')
 
-    //            li
-    //              a(href='#') Information
-    //              p#infobox Here there is plenty of room to put all sorts of example information about some particular node.  There could be citations too
-    //                sup 1
-    //                | perhaps.
-    //            li
-    //              a(href='#') Bibliography 
-    //              | 1. Will et. al. "Some Example Paper", Phys. Rev. Letters. 11-2229.
-    //            li(style='padding:0;')
-
     //#footer(style='clear: both; text-align: center; font-size: 12px; font-weight: bold;')
     //  a(href='http://thewikinetsproject.wordpress.com') About
     //  | |
     //  a(href='http://thewikinetsproject.wordpress.com/about/') Contact
-
-    //br
-
-    //This is now implemented in the main menu, but 
-    //is commented here just in case.
-    //h1 search for node by id:
-    //form(method="post",action="/search_id")
-    //  input(type="text",name="nodeid")
-    //  input(type="submit",value="Submit")
-
-    //This is now inactive, but commented just in case.
-    //h1 add new node:
-    //form(method="post",action="/")
-    //  input(type="text",name="name")
-    //  input(type="submit",value="Submit")
 
     //CHANGE
 
