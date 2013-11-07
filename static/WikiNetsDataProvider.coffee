@@ -64,22 +64,29 @@ define ["DataProvider"], (DataProvider) ->
 
   class WikiNetsDataProvider extends DataProvider
 
+    filterGetName = (name) ->
+      name = "" if typeof name is "undefined"
+      return name
+
     getName = (id) ->
-      return node['name'] for node in nodesList when node['_id'] is id
+      return filterGetName(node['name']) for node in nodesList when node['_id'] is id
 
     getID = (name) ->
-      console.log "getID for name: ", name
+      #console.log "getID for name: ", name
       return node['_id'] for node in nodesList when node['name'] is name
 
     assignNeighbors = (centerNode, Nnode, NewGraph, strength) ->
+      #console.log "add link from: ", centerNode, " to: ", Nnode, " with strength: ", strength
       NewGraph[centerNode][Nnode] = strength #Gives the new link a random strength
 
     findTargets = (id, NewGraph) ->
       #console.log "findTargets called with id: ", id
-      NewGraph[getName(id)]={}
       assignNeighbors(getName(id),getName(link['target']), NewGraph, link['strength']) for link in linksList when link['source'] is id
-      #console.log "findTargets adds to NewGraph s.t.: ", NewGraph
+      #console.log "link from: ", getName(link['source']), " to: ", getName(link['target'])
       return NewGraph
+
+    setUpNewGraph = (id,NewGraph) ->
+      NewGraph[getName(id)]={}
 
     findSources = (id, NewGraph) ->
       assignNeighbors(getName(id),getName(link['source']), NewGraph, link['strength']) for link in linksList when link['target'] is id
@@ -92,7 +99,7 @@ define ["DataProvider"], (DataProvider) ->
       tmp = {}
       tmp['source'] = renumberLinkSTIds(oldlink['source'])
       tmp['target'] = renumberLinkSTIds(oldlink['target'])
-      tmp['strength'] = Math.random()*0.9+0.1
+      tmp['strength'] = 1 #Math.random()*0.9+0.1
       return tmp
 
     convertForCelestrium = (graphNew) ->
@@ -103,9 +110,11 @@ define ["DataProvider"], (DataProvider) ->
       NewGraph = {}
       ###console.log "NODESLIST", nodesList
       console.log "linksList", linksList###
+      setUpNewGraph(node['_id'],NewGraph) for node in nodesList
       findTargets(node['_id'], NewGraph) for node in nodesList 
+      #console.log "This is the NewGraph after findTargets", NewGraph
       findSources(node['_id'], NewGraph) for node in nodesList 
-      #console.log "This is the NewGraph", NewGraph
+      #console.log "This is the NewGraph after findSources", NewGraph
       return NewGraph
 
 

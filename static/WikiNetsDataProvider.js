@@ -93,7 +93,7 @@ all nodes in the graph are added.
     nodesList = {};
     linksList = {};
     return WikiNetsDataProvider = (function(_super) {
-      var assignNeighbors, convertForCelestrium, findSources, findTargets, getID, getName, newLink, renumberLinkSTIds;
+      var assignNeighbors, convertForCelestrium, filterGetName, findSources, findTargets, getID, getName, newLink, renumberLinkSTIds, setUpNewGraph;
 
       __extends(WikiNetsDataProvider, _super);
 
@@ -102,19 +102,25 @@ all nodes in the graph are added.
         return _ref;
       }
 
+      filterGetName = function(name) {
+        if (typeof name === "undefined") {
+          name = "";
+        }
+        return name;
+      };
+
       getName = function(id) {
         var node, _i, _len;
         for (_i = 0, _len = nodesList.length; _i < _len; _i++) {
           node = nodesList[_i];
           if (node['_id'] === id) {
-            return node['name'];
+            return filterGetName(node['name']);
           }
         }
       };
 
       getID = function(name) {
         var node, _i, _len;
-        console.log("getID for name: ", name);
         for (_i = 0, _len = nodesList.length; _i < _len; _i++) {
           node = nodesList[_i];
           if (node['name'] === name) {
@@ -129,7 +135,6 @@ all nodes in the graph are added.
 
       findTargets = function(id, NewGraph) {
         var link, _i, _len;
-        NewGraph[getName(id)] = {};
         for (_i = 0, _len = linksList.length; _i < _len; _i++) {
           link = linksList[_i];
           if (link['source'] === id) {
@@ -137,6 +142,10 @@ all nodes in the graph are added.
           }
         }
         return NewGraph;
+      };
+
+      setUpNewGraph = function(id, NewGraph) {
+        return NewGraph[getName(id)] = {};
       };
 
       findSources = function(id, NewGraph) {
@@ -159,7 +168,7 @@ all nodes in the graph are added.
         tmp = {};
         tmp['source'] = renumberLinkSTIds(oldlink['source']);
         tmp['target'] = renumberLinkSTIds(oldlink['target']);
-        tmp['strength'] = Math.random() * 0.9 + 0.1;
+        tmp['strength'] = 1;
         return tmp;
       };
 
@@ -168,7 +177,7 @@ all nodes in the graph are added.
         console.log graphNew["nodes"]
         */
 
-        var NewGraph, link, n, node, _i, _j, _len, _len1;
+        var NewGraph, link, n, node, _i, _j, _k, _len, _len1, _len2;
         nodesList = (function() {
           var _i, _len, _ref1, _results;
           _ref1 = graphNew["nodes"];
@@ -196,10 +205,14 @@ all nodes in the graph are added.
 
         for (_i = 0, _len = nodesList.length; _i < _len; _i++) {
           node = nodesList[_i];
-          findTargets(node['_id'], NewGraph);
+          setUpNewGraph(node['_id'], NewGraph);
         }
         for (_j = 0, _len1 = nodesList.length; _j < _len1; _j++) {
           node = nodesList[_j];
+          findTargets(node['_id'], NewGraph);
+        }
+        for (_k = 0, _len2 = nodesList.length; _k < _len2; _k++) {
+          node = nodesList[_k];
           findSources(node['_id'], NewGraph);
         }
         return NewGraph;
