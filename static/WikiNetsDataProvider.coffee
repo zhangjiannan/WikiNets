@@ -48,7 +48,65 @@ define ["DataProvider"], (DataProvider) ->
     "C":
       "B": 0.1
 
-  class ExampleDataProvider extends DataProvider
+  graphNew = 
+    "links": [
+      [source:1,target:2, strength:1]
+      [source:2,target:3, strength:1]
+    ]
+    "nodes": [
+      [_id:1, name:"Alice"]
+      [_id:2, name:"Bob"]
+      [_id:3, name:"Irving"]
+    ]
+
+  nodesList = {};
+  linksList = {};
+
+  class WikiNetsDataProvider extends DataProvider
+
+    getName = (id) ->
+      return node['name'] for node in nodesList when node['_id'] is id
+
+    getID = (name) ->
+      console.log "getID for name: ", name
+      return node['_id'] for node in nodesList when node['name'] is name
+
+    assignNeighbors = (centerNode, Nnode, NewGraph) ->
+      NewGraph[centerNode][Nnode] = 1.0
+
+    findTargets = (id, NewGraph) ->
+      #console.log "findTargets called with id: ", id
+      NewGraph[getName(id)]={}
+      assignNeighbors(getName(id),getName(link['target']), NewGraph) for link in linksList when link['source'] is id
+      #console.log "findTargets adds to NewGraph s.t.: ", NewGraph
+      return NewGraph
+
+    findSources = (id, NewGraph) ->
+      assignNeighbors(getName(id),getName(link['source']), NewGraph) for link in linksList when link['target'] is id
+      return NewGraph
+
+    renumberLinkSTIds = (linkSTId) ->
+      return nodesList[linkSTId]['_id']
+
+    newLink = (oldlink) ->
+      tmp = {}
+      tmp['source'] = renumberLinkSTIds(oldlink['source'])
+      tmp['target'] = renumberLinkSTIds(oldlink['target'])
+      return tmp
+
+    convertForCelestrium = (graphNew) ->
+      ###console.log "CONVERT HAS BEEN CALLED"
+      console.log graphNew["nodes"]###
+      nodesList = (n for n in graphNew["nodes"])
+      linksList = (newLink(link) for link in graphNew["links"])
+      NewGraph = {}
+      ###console.log "NODESLIST", nodesList
+      console.log "linksList", linksList###
+      findTargets(node['_id'], NewGraph) for node in nodesList 
+      findSources(node['_id'], NewGraph) for node in nodesList 
+      #console.log "This is the NewGraph", NewGraph
+      return NewGraph
+
 
     ###
 
@@ -58,8 +116,14 @@ define ["DataProvider"], (DataProvider) ->
 
     ###
     getLinks: (node, nodes, callback) ->
-      callback _.map nodes, (otherNode, i) ->
-        return "strength": graph[node.text][otherNode.text]
+      $.getJSON "/json", (data) -> 
+        #console.log "This is the data: ", data
+
+        graph = convertForCelestrium(data)
+        #console.log "THIS IS THE GRAPH: ", graph
+        ###console.log "This is the graph: ", graph###
+        callback _.map nodes, (otherNode, i) ->
+          return "strength": graph[node.text][otherNode.text]
 
     ###
 
@@ -69,9 +133,15 @@ define ["DataProvider"], (DataProvider) ->
 
     ###
     getLinkedNodes: (nodes, callback) ->
-      callback _.chain(nodes)
-        .map (node) ->
-          _.map graph[node.text], (strength, text) ->
-            "text": text
-        .flatten()
-        .value()
+      $.getJSON "/json", (data) ->
+        #console.log "This is the data: ", data
+        
+        graph = convertForCelestrium(data)
+
+        #console.log "getLinkedNodes called with: ", nodes
+        callback _.chain(nodes)
+          .map (node) ->
+            _.map graph[node.text], (strength, text) ->
+              "text": text
+          .flatten()
+          .value()

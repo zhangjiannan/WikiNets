@@ -51,7 +51,12 @@ require ["Celestrium"], (Celestrium) ->
     # stores the actual nodes and links of the graph
     GraphModel:
       nodeHash: (node) -> node.text
+      linkHash: (link) -> link.source.text+link.target.text
+
+    ###DEFAULT GraphModel
+      nodeHash: (node) -> node.text
       linkHash: (link) -> link.source.text + link.target.text
+    ###
 
     # renders the graph using d3's force directedlayout
     GraphView: {}
@@ -61,13 +66,13 @@ require ["Celestrium"], (Celestrium) ->
 
     # provides functions to retreive nodes and links
     # relative present ones
-    "local/ExampleDataProvider": {}
+    "local/WikiNetsDataProvider": {}
 
   # initialize the plugins and execute a callback once done
   Celestrium.init plugins, (instances) ->
 
-    # this prepopulates the graph with the "B" node
-    instances["GraphModel"].putNode text: "B"
+    # this prepopulates the graph with the "Bob" node
+    instances["GraphModel"].putNode text: "Albert"
 
     # this allows all link strengths to be visible
     instances["GraphView"].getLinkFilter().set("threshold", 0)

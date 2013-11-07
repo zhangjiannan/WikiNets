@@ -410,5 +410,27 @@ module.exports = class MyApp
 
     )
 
+
+    ###
+    get_linkss for Celestrium
+    ###
+    app.post('/get_links', (request,response)->
+      console.log "get_links Requested"
+      console.log request.body 
+      response.send "error"
+      ###
+      cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
+      console.log "Executing " + cypherQuery
+      graphDb.cypher.execute(cypherQuery).then(
+        (noderes) ->
+          console.log "Arrow Deleted"
+          response.send "success"
+        (noderes) ->
+          console.log "Could Not Delete Arrow"
+          response.send "error"
+      )
+      ###
+    )
+
     port = process.env.PORT || 3000
     app.listen port, -> console.log("Listening on " + port)

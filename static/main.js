@@ -28,8 +28,6 @@
     The value is passed to its constructor.
     */
 
-    console.log("main.js called");
-
     var plugins;
     plugins = {
       Layout: {
@@ -44,13 +42,18 @@
           return link.source.text + link.target.text;
         }
       },
+      /*DEFAULT GraphModel
+        nodeHash: (node) -> node.text
+        linkHash: (link) -> link.source.text + link.target.text
+      */
+
       GraphView: {},
       NodeSelection: {},
-      "local/ExampleDataProvider": {}
+      "local/WikiNetsDataProvider": {}
     };
     return Celestrium.init(plugins, function(instances) {
       instances["GraphModel"].putNode({
-        text: "B"
+        text: "Albert"
       });
       return instances["GraphView"].getLinkFilter().set("threshold", 0);
     });
