@@ -50,7 +50,8 @@
       "LinkDistribution": {},
       "NodeSearch": {
         prefetch: "/get_node_names"
-      }
+      },
+      NodeDetails: {}
     };
     return Celestrium.init(plugins, function(instances) {
       instances["GraphModel"].putNode({

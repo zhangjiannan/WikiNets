@@ -62,13 +62,17 @@ require ["Celestrium"], (Celestrium) ->
     # provides functions to retreive nodes and links
     # relative present ones
     "local/WikiNetsDataProvider": {}
+
     "Sliders": {}
+
     "ForceSliders": {}
 
     "LinkDistribution": {}
 
     "NodeSearch": 
       prefetch: "/get_node_names"
+
+    NodeDetails: {}
 
   # initialize the plugins and execute a callback once done
   Celestrium.init plugins, (instances) ->
