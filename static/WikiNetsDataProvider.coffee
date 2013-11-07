@@ -71,18 +71,18 @@ define ["DataProvider"], (DataProvider) ->
       console.log "getID for name: ", name
       return node['_id'] for node in nodesList when node['name'] is name
 
-    assignNeighbors = (centerNode, Nnode, NewGraph) ->
-      NewGraph[centerNode][Nnode] = 1.0
+    assignNeighbors = (centerNode, Nnode, NewGraph, strength) ->
+      NewGraph[centerNode][Nnode] = strength #Gives the new link a random strength
 
     findTargets = (id, NewGraph) ->
       #console.log "findTargets called with id: ", id
       NewGraph[getName(id)]={}
-      assignNeighbors(getName(id),getName(link['target']), NewGraph) for link in linksList when link['source'] is id
+      assignNeighbors(getName(id),getName(link['target']), NewGraph, link['strength']) for link in linksList when link['source'] is id
       #console.log "findTargets adds to NewGraph s.t.: ", NewGraph
       return NewGraph
 
     findSources = (id, NewGraph) ->
-      assignNeighbors(getName(id),getName(link['source']), NewGraph) for link in linksList when link['target'] is id
+      assignNeighbors(getName(id),getName(link['source']), NewGraph, link['strength']) for link in linksList when link['target'] is id
       return NewGraph
 
     renumberLinkSTIds = (linkSTId) ->
@@ -92,6 +92,7 @@ define ["DataProvider"], (DataProvider) ->
       tmp = {}
       tmp['source'] = renumberLinkSTIds(oldlink['source'])
       tmp['target'] = renumberLinkSTIds(oldlink['target'])
+      tmp['strength'] = Math.random()*0.9+0.1
       return tmp
 
     convertForCelestrium = (graphNew) ->

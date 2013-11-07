@@ -123,8 +123,8 @@ all nodes in the graph are added.
         }
       };
 
-      assignNeighbors = function(centerNode, Nnode, NewGraph) {
-        return NewGraph[centerNode][Nnode] = 1.0;
+      assignNeighbors = function(centerNode, Nnode, NewGraph, strength) {
+        return NewGraph[centerNode][Nnode] = strength;
       };
 
       findTargets = function(id, NewGraph) {
@@ -133,7 +133,7 @@ all nodes in the graph are added.
         for (_i = 0, _len = linksList.length; _i < _len; _i++) {
           link = linksList[_i];
           if (link['source'] === id) {
-            assignNeighbors(getName(id), getName(link['target']), NewGraph);
+            assignNeighbors(getName(id), getName(link['target']), NewGraph, link['strength']);
           }
         }
         return NewGraph;
@@ -144,7 +144,7 @@ all nodes in the graph are added.
         for (_i = 0, _len = linksList.length; _i < _len; _i++) {
           link = linksList[_i];
           if (link['target'] === id) {
-            assignNeighbors(getName(id), getName(link['source']), NewGraph);
+            assignNeighbors(getName(id), getName(link['source']), NewGraph, link['strength']);
           }
         }
         return NewGraph;
@@ -159,6 +159,7 @@ all nodes in the graph are added.
         tmp = {};
         tmp['source'] = renumberLinkSTIds(oldlink['source']);
         tmp['target'] = renumberLinkSTIds(oldlink['target']);
+        tmp['strength'] = Math.random() * 0.9 + 0.1;
         return tmp;
       };
 

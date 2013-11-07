@@ -241,7 +241,7 @@ $.getJSON('/json', function(data){
                .attr("id", "options");
 
   // creates place for the main graph
-  var div1 = d3.select("#maingraph").append("div")
+  var div1 = d3.select("body").append("div")
                .attr("name", "mainNet")
                .attr("id", "mainNet")
 

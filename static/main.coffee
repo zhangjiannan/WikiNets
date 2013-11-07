@@ -53,11 +53,6 @@ require ["Celestrium"], (Celestrium) ->
       nodeHash: (node) -> node.text
       linkHash: (link) -> link.source.text+link.target.text
 
-    ###DEFAULT GraphModel
-      nodeHash: (node) -> node.text
-      linkHash: (link) -> link.source.text + link.target.text
-    ###
-
     # renders the graph using d3's force directedlayout
     GraphView: {}
 
@@ -67,6 +62,13 @@ require ["Celestrium"], (Celestrium) ->
     # provides functions to retreive nodes and links
     # relative present ones
     "local/WikiNetsDataProvider": {}
+    "Sliders": {}
+    "ForceSliders": {}
+
+    "LinkDistribution": {}
+
+    "NodeSearch": 
+      prefetch: "/get_node_names"
 
   # initialize the plugins and execute a callback once done
   Celestrium.init plugins, (instances) ->

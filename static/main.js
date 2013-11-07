@@ -42,14 +42,15 @@
           return link.source.text + link.target.text;
         }
       },
-      /*DEFAULT GraphModel
-        nodeHash: (node) -> node.text
-        linkHash: (link) -> link.source.text + link.target.text
-      */
-
       GraphView: {},
       NodeSelection: {},
-      "local/WikiNetsDataProvider": {}
+      "local/WikiNetsDataProvider": {},
+      "Sliders": {},
+      "ForceSliders": {},
+      "LinkDistribution": {},
+      "NodeSearch": {
+        prefetch: "/get_node_names"
+      }
     };
     return Celestrium.init(plugins, function(instances) {
       instances["GraphModel"].putNode({

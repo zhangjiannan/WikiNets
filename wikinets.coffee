@@ -412,24 +412,11 @@ module.exports = class MyApp
 
 
     ###
-    get_linkss for Celestrium
+    get_nodes returns a list of all the node names
     ###
-    app.post('/get_links', (request,response)->
-      console.log "get_links Requested"
-      console.log request.body 
-      response.send "error"
-      ###
-      cypherQuery = "start r=rel(" + request.body.id + ") delete r;"
-      console.log "Executing " + cypherQuery
-      graphDb.cypher.execute(cypherQuery).then(
-        (noderes) ->
-          console.log "Arrow Deleted"
-          response.send "success"
-        (noderes) ->
-          console.log "Could Not Delete Arrow"
-          response.send "error"
-      )
-      ###
+    app.get('/get_node_names', (request,response)->
+      inputer = (builder)->response.json (node['name'] for node in builder["nodes"] when typeof node['name'] isnt "undefined")
+      getvizjson inputer, request, response
     )
 
     port = process.env.PORT || 3000

@@ -9,9 +9,10 @@
   h1 a:hover{ background:#e3edef; }
 
   /*WikiNet viz css*/
-  .choose_menu {cursor: pointer;}
+  /*.choose_menu {cursor: pointer;}
   .node { stroke: #fff; stroke-width: 1.5px; }
-  .link { stroke: #999; stroke-opacity: .6; }
+  .link { stroke: #999; stroke-opacity: .6; }*/
+  #mainNet{position:absolute;top:650px;left:100px;}
 
   /*Css for the sidebar*/
   ul, li{ margin:0; border:0; padding:0; list-style:none; }
