@@ -253,7 +253,8 @@ all nodes in the graph are added.
           return callback(_.chain(nodes).map(function(node) {
             return _.map(graph[node.text], function(strength, text) {
               return {
-                "text": text
+                "text": text,
+                "text2": text
               };
             });
           }).flatten().value());

@@ -77,7 +77,7 @@ require ["Celestrium"], (Celestrium) ->
   # initialize the plugins and execute a callback once done
   Celestrium.init plugins, (instances) ->
 
-    # this prepopulates the graph with the "Bob" node
+    # this prepopulates the graph with the "Albert" node
     instances["GraphModel"].putNode text: "Albert"
 
     # this allows all link strengths to be visible
