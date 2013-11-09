@@ -153,5 +153,6 @@ define ["DataProvider"], (DataProvider) ->
           .map (node) ->
             _.map graph[node.text], (strength, text) ->
               "text": text
+              "id": getID(text)
           .flatten()
           .value()

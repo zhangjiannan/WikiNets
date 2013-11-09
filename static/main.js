@@ -55,7 +55,8 @@
     };
     return Celestrium.init(plugins, function(instances) {
       instances["GraphModel"].putNode({
-        text: "Albert"
+        text: "Albert",
+        id: "300"
       });
       return instances["GraphView"].getLinkFilter().set("threshold", 0);
     });

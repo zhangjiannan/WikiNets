@@ -64,6 +64,9 @@ $.getJSON('/json', function(data){
 
   /* Displays node information in InfoBox and (if open) EditNode menu */
   function node_info(d, i, th) { 
+    console.log("d is: ", d);
+    console.log("i is: ", i);
+    console.log("th is: ", th);
     // Use data from existing JSON to put into InfoBar div
     // Should replace this with something more versatile
     var theinfo = "This node is called: "+ d.name + "\<br\> Info: " + d.Info;

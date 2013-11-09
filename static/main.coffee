@@ -25,6 +25,7 @@ NOTE: it's module loads the globally defined standard js libraries
       like jQuery, underscore, etc...
 
 ###
+
 require ["Celestrium"], (Celestrium) ->
 
   ###
@@ -78,7 +79,7 @@ require ["Celestrium"], (Celestrium) ->
   Celestrium.init plugins, (instances) ->
 
     # this prepopulates the graph with the "Albert" node
-    instances["GraphModel"].putNode text: "Albert"
+    instances["GraphModel"].putNode {text: "Albert", id:"300"}
 
     # this allows all link strengths to be visible
     instances["GraphView"].getLinkFilter().set("threshold", 0)

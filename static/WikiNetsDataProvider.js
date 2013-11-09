@@ -254,7 +254,7 @@ all nodes in the graph are added.
             return _.map(graph[node.text], function(strength, text) {
               return {
                 "text": text,
-                "text2": text
+                "id": getID(text)
               };
             });
           }).flatten().value());
